@@ -2,6 +2,7 @@ import Flutter
 import UIKit
 import WeScan
 
+// Mehthod gọi hàm từ flutter về swift
 public class SwiftEdgeDetectionPlugin: NSObject, FlutterPlugin, UIApplicationDelegate {
     
     public static func register(with registrar: FlutterPluginRegistrar) {

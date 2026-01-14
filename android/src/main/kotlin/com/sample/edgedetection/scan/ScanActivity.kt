@@ -68,10 +68,8 @@ class ScanActivity : BaseActivity(), IScanView.Proxy {
             this.title = initialBundle.getString(EdgeDetectionHandler.SCAN_TITLE, "") as String
         }
 
-        findViewById<View>(R.id.gallery).visibility =
-                if (initialBundle.getBoolean(EdgeDetectionHandler.CAN_USE_GALLERY, true))
-                    View.VISIBLE
-                else View.GONE
+        // Ẩn button chọn ảnh
+        findViewById<View>(R.id.gallery).visibility = View.GONE
 
         findViewById<View>(R.id.gallery).setOnClickListener {
             pickupFromGallery()

@@ -1,17 +1,8 @@
-//
-//  ReviewViewController.swift
-//  WeScan
-//
-//  Created by Boris Emorine on 2/25/18.
-//  Copyright © 2018 WeTransfer. All rights reserved.
-//
-
 import UIKit
 
-/// The `ReviewViewController` offers an interface to review the image after it
-/// has been cropped and deskewed according to the passed in quadrilateral.
-final class ReviewViewController: UIViewController {
+/// The `ReviewViewController` offers an interface to review the image after it has been cropped and enhanced.
 
+final class ReviewViewController: UIViewController {
     private var rotationAngle = Measurement<UnitAngle>(value: 0, unit: .degrees)
     private var enhancedImageIsAvailable = false
     private var isCurrentlyDisplayingEnhancedImage = false
@@ -27,32 +18,13 @@ final class ReviewViewController: UIViewController {
         return imageView
     }()
 
-    private lazy var enhanceButton: UIBarButtonItem = {
-        let image = UIImage(
-            systemName: "wand.and.rays.inverse",
-            named: "enhance",
-            in: Bundle(for: ScannerViewController.self),
-            compatibleWith: nil
-        )
-        let button = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(toggleEnhancedImage))
-        button.tintColor = .white
-        return button
-    }()
-
-    private lazy var rotateButton: UIBarButtonItem = {
-        let image = UIImage(systemName: "rotate.right", named: "rotate", in: Bundle(for: ScannerViewController.self), compatibleWith: nil)
-        let button = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(rotateImage))
-        button.tintColor = .white
-        return button
-    }()
-
     private lazy var doneButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(finishScan))
+        let button = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector (finishScan))
         button.tintColor = navigationController?.navigationBar.tintColor
         return button
     }()
 
-    private let results: ImageScannerResults
+    private var results: ImageScannerResults
 
     // MARK: - Life Cycle
 
@@ -61,40 +33,39 @@ final class ReviewViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init ? (coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Your review screen UI and logic goes here.
+        // For example, you can display the cropped image.
+//        let imageView = UIImageView(image: results.croppedScan.image)
+//        imageView.frame = view.bounds
+//        imageView.contentMode = .scaleAspectFit
+//        view.addSubview(imageView)
         enhancedImageIsAvailable = results.enhancedScan != nil
-
         setupViews()
-        setupToolbar()
+        //setupToolbar()
         setupConstraints()
 
-        title = NSLocalizedString("wescan.review.title",
-                                  tableName: nil,
-                                  bundle: Bundle(for: ReviewViewController.self),
-                                  value: "Review",
-                                  comment: "The review title of the ReviewController"
-        )
+        title = NSLocalizedString("wescan.review.title", tableName: nil, bundle: Bundle(for: ReviewViewController.self), value: "Review", comment: "The review title of the ReviewController")
         navigationItem.rightBarButtonItem = doneButton
     }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         // We only show the toolbar (with the enhance button) if the enhanced image is available.
-        if enhancedImageIsAvailable {
-            navigationController?.setToolbarHidden(false, animated: true)
-        }
+        //        if enhancedImageIsAvailable {
+        //            navigationController?.setToolbarHidden(false, animated: true)
+        //        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.setToolbarHidden(true, animated: true)
+        //navigationController?.setToolbarHidden(true, animated: true)
     }
 
     // MARK: Setups
@@ -103,15 +74,15 @@ final class ReviewViewController: UIViewController {
         view.addSubview(imageView)
     }
 
-    private func setupToolbar() {
-        guard enhancedImageIsAvailable else { return }
-
-        navigationController?.toolbar.barStyle = .blackTranslucent
-
-        let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolbarItems = [fixedSpace, enhanceButton, flexibleSpace, rotateButton, fixedSpace]
-    }
+    //    private func setupToolbar() {
+    //        guard enhancedImageIsAvailable else { return }
+    //
+    //        navigationController?.toolbar.barStyle = .blackTranslucent
+    //
+    //        let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+    //        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    //        toolbarItems = [fixedSpace, enhanceButton, flexibleSpace, rotateButton, fixedSpace]
+    //    }
 
     private func setupConstraints() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -146,38 +117,67 @@ final class ReviewViewController: UIViewController {
         }
     }
 
-    @objc func toggleEnhancedImage() {
-        guard enhancedImageIsAvailable else { return }
+    //    @objc func toggleEnhancedImage() {
+    //        guard enhancedImageIsAvailable else { return }
+    //
+    //        isCurrentlyDisplayingEnhancedImage.toggle()
+    //        reloadImage()
+    //
+    //        if isCurrentlyDisplayingEnhancedImage {
+    //            enhanceButton.tintColor = .yellow
+    //        } else {
+    //            enhanceButton.tintColor = .white
+    //        }
+    //    }
 
-        isCurrentlyDisplayingEnhancedImage.toggle()
-        reloadImage()
-
-        if isCurrentlyDisplayingEnhancedImage {
-            enhanceButton.tintColor = .yellow
-        } else {
-            enhanceButton.tintColor = .white
-        }
-    }
-
-    @objc func rotateImage() {
-        rotationAngle.value += 90
-
-        if rotationAngle.value == 360 {
-            rotationAngle.value = 0
-        }
-
-        reloadImage()
-    }
+    //    @objc func rotateImage() {
+    //        rotationAngle.value += 90
+    //
+    //        if rotationAngle.value == 360 {
+    //            rotationAngle.value = 0
+    //        }
+    //
+    //        reloadImage()
+    //    }
 
     @objc private func finishScan() {
         guard let imageScannerController = navigationController as? ImageScannerController else { return }
 
+        print("tl: \(results.detectedRectangle.topLeft)")
+        print("tr: \(results.detectedRectangle.topRight)")
+        print("bl: \(results.detectedRectangle.bottomLeft)")
+        print("br: \(results.detectedRectangle.bottomRight)")
+
+        print("dmmmmmmmmmmm")
+        //top left
+        results.detectedRectangle.topLeft.x += 200;
+        results.detectedRectangle.topLeft.y -= 200;
+
+        //top right
+        results.detectedRectangle.topRight.x -= 200;
+        results.detectedRectangle.topRight.y -= 200;
+
+        //bottom left
+        results.detectedRectangle.bottomLeft.x += 200;
+        results.detectedRectangle.bottomLeft.y += 200;
+
+        //bottom right
+        results.detectedRectangle.bottomRight.x -= 200;
+        results.detectedRectangle.bottomRight.y += 200;
+
+
         var newResults = results
-        newResults.croppedScan.rotate(by: rotationAngle)
-        newResults.enhancedScan?.rotate(by: rotationAngle)
-        newResults.doesUserPreferEnhancedScan = isCurrentlyDisplayingEnhancedImage
-        imageScannerController.imageScannerDelegate?
-            .imageScannerController(imageScannerController, didFinishScanningWithResults: newResults)
+
+        print("tl: \(newResults.detectedRectangle.topLeft)")
+        print("tr: \(newResults.detectedRectangle.topRight)")
+        print("bl: \(newResults.detectedRectangle.bottomLeft)")
+        print("br: \(newResults.detectedRectangle.bottomRight)")
+
+        newResults.croppedScan.resizeByCorners(topLeft: newResults.detectedRectangle.topLeft, topRight: newResults.detectedRectangle.topRight, bottomLeft: newResults.detectedRectangle.bottomLeft, bottomRight: newResults.detectedRectangle.bottomRight)
+        //        newResults.croppedScan.rotate(by: rotationAngle)
+        //        newResults.enhancedScan?.rotate(by: rotationAngle)
+        //        newResults.doesUserPreferEnhancedScan = isCurrentlyDisplayingEnhancedImage
+        imageScannerController.imageScannerDelegate?.imageScannerController(imageScannerController, didFinishScanningWithResults: newResults)
     }
 
 }

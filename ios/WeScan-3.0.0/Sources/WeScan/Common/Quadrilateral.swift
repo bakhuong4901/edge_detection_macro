@@ -4,8 +4,12 @@
 //
 //  Created by Boris Emorine on 2/8/18.
 //  Copyright © 2018 WeTransfer. All rights reserved.
-//
+//Model đại diện cho hình chữ nhật
+//Lưu 4 điểm
 
+  //Chuẩn hóa tọa độ
+
+  //Scale theo preview / image
 import AVFoundation
 import CoreImage
 import Foundation

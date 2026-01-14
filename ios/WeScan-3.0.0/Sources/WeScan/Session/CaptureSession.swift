@@ -30,7 +30,10 @@ final class CaptureSession {
         self.device = AVCaptureDevice.default(for: .video)
 
         self.isEditing = false
-        self.isAutoScanEnabled = isAutoScanEnabled
+        //khuong
+        self.isAutoScanEnabled = false
+
+//         self.isAutoScanEnabled = isAutoScanEnabled
         self.editImageOrientation = editImageOrientation
     }
 

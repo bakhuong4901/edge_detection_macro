@@ -30,6 +30,7 @@ final class EditScanViewController: UIViewController {
         return quadView
     }()
 
+    // Button Next
     private lazy var nextButton: UIBarButtonItem = {
         let title = NSLocalizedString("wescan.edit.button.next",
                                       tableName: nil,
@@ -41,12 +42,19 @@ final class EditScanViewController: UIViewController {
         button.tintColor = navigationController?.navigationBar.tintColor
         return button
     }()
-
+    // Button Hoàn thành
+    private lazy var doneButton: UIBarButtonItem = {
+        let title = NSLocalizedString("wescan.done.title", tableName: nil, bundle: Bundle(for: EditScanViewController.self), value: "Hoàn thành", comment: "A generic next button")
+        let button = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(pushReviewController))
+        button.tintColor = navigationController?.navigationBar.tintColor
+        return button
+    }()
+    // Button Huỷ
     private lazy var cancelButton: UIBarButtonItem = {
         let title = NSLocalizedString("wescan.scanning.cancel",
                                       tableName: nil,
                                       bundle: Bundle(for: EditScanViewController.self),
-                                      value: "Cancel",
+                                      value: "Quay lại",
                                       comment: "A generic cancel button"
         )
         let button = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(cancelButtonTapped))
@@ -82,24 +90,26 @@ final class EditScanViewController: UIViewController {
 
         setupViews()
         setupConstraints()
+        // Title sau khi chụp ảnh xong
         title = NSLocalizedString("wescan.edit.title",
                                   tableName: nil,
                                   bundle: Bundle(for: EditScanViewController.self),
-                                  value: "Edit Scan",
+                                  value: "Kiểm tra Test",
                                   comment: "The title of the EditScanViewController"
         )
-        navigationItem.rightBarButtonItem = nextButton
+        navigationItem.rightBarButtonItem = doneButton
+//        navigationItem.rightBarButtonItem = nextButton
         if let firstVC = self.navigationController?.viewControllers.first, firstVC == self {
             navigationItem.leftBarButtonItem = cancelButton
         } else {
-            navigationItem.leftBarButtonItem = nil
+            navigationItem.leftBarButtonItem = cancelButton
         }
-
-        zoomGestureController = ZoomGestureController(image: image, quadView: quadView)
-
-        let touchDown = UILongPressGestureRecognizer(target: zoomGestureController, action: #selector(zoomGestureController.handle(pan:)))
-        touchDown.minimumPressDuration = 0
-        view.addGestureRecognizer(touchDown)
+        //khuong: tắt phần chỉnh sửa
+//        zoomGestureController = ZoomGestureController(image: image, quadView: quadView)
+//
+//        let touchDown = UILongPressGestureRecognizer(target: zoomGestureController, action: #selector(zoomGestureController.handle(pan:)))
+//        touchDown.minimumPressDuration = 0
+//        view.addGestureRecognizer(touchDown)
     }
 
     override public func viewDidLayoutSubviews() {
@@ -187,9 +197,11 @@ final class EditScanViewController: UIViewController {
             croppedScan: ImageScannerScan(image: croppedImage),
             enhancedScan: enhancedScan
         )
-
-        let reviewViewController = ReviewViewController(results: results)
-        navigationController?.pushViewController(reviewViewController, animated: true)
+        guard let imageScannerController = navigationController as? ImageScannerController else { return }
+        imageScannerController.imageScannerDelegate?.imageScannerController(imageScannerController, didFinishScanningWithResults: results)
+        // khuong
+//        let reviewViewController = ReviewViewController(results: results)
+//        navigationController?.pushViewController(reviewViewController, animated: true)
     }
 
     private func displayQuad() {

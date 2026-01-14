@@ -42,10 +42,11 @@ enum VisionRectangleDetector {
                 completion(biggest.applying(transform))
             })
 
-            rectDetectRequest.minimumConfidence = 0.8
-            rectDetectRequest.maximumObservations = 15
-            rectDetectRequest.minimumAspectRatio = 0.3
-
+             // Điều chỉnh các tham số để chỉ nhận diện hình chữ nhật
+             rectDetectRequest.minimumConfidence = 0.9 // Độ tin cậy tối thiểu
+             rectDetectRequest.maximumObservations = 5 // Số lượng quan sát tối đa
+             rectDetectRequest.minimumAspectRatio = 2.0 // Chiều cao lớn hơn 2 lần chiều rộng
+             rectDetectRequest.maximumAspectRatio = 1.0 // Không nhận diện hình vuông
             return rectDetectRequest
         }()
 

@@ -48,9 +48,8 @@ class HomeViewController: UIViewController, ImageScannerControllerDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if (canUseGallery == true) {
-            selectPhotoButton.isHidden = false
-        }
+        // Ẩn button chọn ảnh
+        selectPhotoButton.isHidden = true
     }
     
     lazy var selectPhotoButton: UIButton = {

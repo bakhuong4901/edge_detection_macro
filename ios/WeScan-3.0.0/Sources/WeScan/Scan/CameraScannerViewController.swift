@@ -43,11 +43,34 @@ public final class CameraScannerViewController: UIViewController {
     /// Whether flash is enabled
     private var flashEnabled = false
 
+    private var isFlashOn = true
+
     override public func viewDidLoad() {
         super.viewDidLoad()
         setupView()
     }
+    func toggleTorch(on: Bool) {
+        guard let device = AVCaptureDevice.default(for: .video) else { return }
 
+        if device.hasTorch {
+            do {
+                try device.lockForConfiguration()
+                if on {
+                    device.torchMode = .on
+                    isFlashOn = true
+                } else {
+                    device.torchMode = .off
+                    isFlashOn = false
+                }
+
+                device.unlockForConfiguration()
+            } catch {
+                print("Torch could not be used")
+            }
+        } else {
+            print("Torch is not available")
+        }
+    }
     override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         CaptureSession.current.isEditing = false
@@ -66,10 +89,12 @@ public final class CameraScannerViewController: UIViewController {
         super.viewWillDisappear(animated)
         UIApplication.shared.isIdleTimerDisabled = false
         captureSessionManager?.stop()
-        guard let device = AVCaptureDevice.default(for: AVMediaType.video) else { return }
-        if device.torchMode == .on {
-            toggleFlash()
-        }
+//         guard let device = AVCaptureDevice.default(for: AVMediaType.video) else { return }
+//         if device.torchMode == .on {
+//             toggleFlash()
+//         }
+        toggleTorch(on: false)
+
     }
 
     private func setupView() {
@@ -147,17 +172,17 @@ public final class CameraScannerViewController: UIViewController {
         captureSessionManager?.capturePhoto()
     }
 
-    public func toggleFlash() {
-        let state = CaptureSession.current.toggleFlash()
-        switch state {
-        case .on:
-            flashEnabled = true
-        case .off:
-            flashEnabled = false
-        case .unknown, .unavailable:
-            flashEnabled = false
-        }
-    }
+//     public func toggleFlash() {
+//         let state = CaptureSession.current.toggleFlash()
+//         switch state {
+//         case .on:
+//             flashEnabled = true
+//         case .off:
+//             flashEnabled = false
+//         case .unknown, .unavailable:
+//             flashEnabled = false
+//         }
+//     }
 
     public func toggleAutoScan() {
         isAutoScanEnabled.toggle()

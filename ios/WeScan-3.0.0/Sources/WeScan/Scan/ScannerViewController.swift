@@ -6,7 +6,11 @@
 //  Copyright © 2018 WeTransfer. All rights reserved.
 //
 //  swiftlint:disable line_length
-
+/// Màn hình camera scan
+//Setup AVCaptureSession
+//Hiển thị camera preview
+//Vẽ overlay rectangle
+//Xử lý user interaction (chụp ảnh, crop lại)
 import AVFoundation
 import UIKit
 
@@ -18,12 +22,14 @@ public final class ScannerViewController: UIViewController {
 
     /// The view that shows the focus rectangle (when the user taps to focus, similar to the Camera app)
     private var focusRectangle: FocusRectangleView!
+    var overlayImageView: UIImageView!
 
     /// The view that draws the detected rectangles.
     private let quadView = QuadrilateralView()
 
     /// Whether flash is enabled
     private var flashEnabled = false
+    private var isFlashOn = false
 
     /// The original bar style that was set by the host app
     private var originalBarStyle: UIBarStyle?
@@ -43,21 +49,21 @@ public final class ScannerViewController: UIViewController {
         return button
     }()
 
-    private lazy var autoScanButton: UIBarButtonItem = {
-        let title = NSLocalizedString("wescan.scanning.auto", tableName: nil, bundle: Bundle(for: ScannerViewController.self), value: "Auto", comment: "The auto button state")
-        let button = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(toggleAutoScan))
-        button.tintColor = .white
-
-        return button
-    }()
-
-    private lazy var flashButton: UIBarButtonItem = {
-        let image = UIImage(systemName: "bolt.fill", named: "flash", in: Bundle(for: ScannerViewController.self), compatibleWith: nil)
-        let button = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(toggleFlash))
-        button.tintColor = .white
-
-        return button
-    }()
+//     private lazy var autoScanButton: UIBarButtonItem = {
+//         let title = NSLocalizedString("wescan.scanning.auto", tableName: nil, bundle: Bundle(for: ScannerViewController.self), value: "Auto", comment: "The auto button state")
+//         let button = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(toggleAutoScan))
+//         button.tintColor = .white
+//
+//         return button
+//     }()
+//
+//     private lazy var flashButton: UIBarButtonItem = {
+//         let image = UIImage(systemName: "bolt.fill", named: "flash", in: Bundle(for: ScannerViewController.self), compatibleWith: nil)
+//         let button = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(toggleFlash))
+//         button.tintColor = .white
+//
+//         return button
+//     }()
 
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView(style: .gray)
@@ -65,7 +71,36 @@ public final class ScannerViewController: UIViewController {
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         return activityIndicator
     }()
+func toggleTorch(on: Bool) {
+        guard let device = AVCaptureDevice.default(for: .video) else { return }
 
+        if device.hasTorch {
+            do {
+                try device.lockForConfiguration()
+                if on {
+                // nếu là on thì độ sáng mặc định là 1 là cao nhất của flash (đọ sáng của flash từ 0.0 đến 1)
+//                    device.torchMode = .on
+                // Khuong set độ sáng của đèn flash
+                    try device.setTorchModeOn(level: 1)
+                    isFlashOn = true
+
+                    // Đo ánh sáng tự nhiên và điều chỉnh flash dựa trên giá trị đo được
+//                let flashIntensity = calculateFlashIntensityBasedOnAmbientLight()
+//                try device.setTorchModeOn(level: flashIntensity)
+                isFlashOn = true
+                } else {
+                    device.torchMode = .off
+                    isFlashOn = false
+                }
+
+                device.unlockForConfiguration()
+            } catch {
+                print("Torch could not be used")
+            }
+        } else {
+            print("Torch is not available")
+        }
+    }
     // MARK: - Life Cycle
 
     override public func viewDidLoad() {
@@ -75,7 +110,7 @@ public final class ScannerViewController: UIViewController {
         view.backgroundColor = UIColor.black
 
         setupViews()
-        setupNavigationBar()
+//         setupNavigationBar()
         setupConstraints()
 
         captureSessionManager = CaptureSessionManager(videoPreviewLayer: videoPreviewLayer, delegate: self)
@@ -85,10 +120,21 @@ public final class ScannerViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(subjectAreaDidChange), name: Notification.Name.AVCaptureDeviceSubjectAreaDidChange, object: nil)
     }
 
+    public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "YourSegueIdentifier" {
+        let backButton = UIBarButtonItem(title: "Quay lại", style: .plain, target: nil, action: nil)
+navigationItem.backBarButtonItem = backButton
+}
+}
+
     override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNeedsStatusBarAppearanceUpdate()
+ //Khuong ẩn thanh navigation màu xám
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.setNeedsStatusBarAppearanceUpdate() // Cập nhật trạng thái thanh trạng thái
 
+        //
         CaptureSession.current.isEditing = false
         quadView.removeQuadrilateral()
         captureSessionManager?.start()
@@ -102,18 +148,22 @@ public final class ScannerViewController: UIViewController {
 
         videoPreviewLayer.frame = view.layer.bounds
     }
-
+                // ẩn hiển toolbar
     override public func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         UIApplication.shared.isIdleTimerDisabled = false
+ //Khuong ẩn thanh navigation màu xám
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        self.setNeedsStatusBarAppearanceUpdate() // Cập nhật trạng thái thanh trạng thái
 
+        //
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.barStyle = originalBarStyle ?? .default
         captureSessionManager?.stop()
-        guard let device = AVCaptureDevice.default(for: AVMediaType.video) else { return }
-        if device.torchMode == .on {
-            toggleFlash()
-        }
+//         guard let device = AVCaptureDevice.default(for: AVMediaType.video) else { return }
+//         if device.torchMode == .on {
+//             toggleFlash()
+//         }
     }
 
     // MARK: - Setups
@@ -123,6 +173,18 @@ public final class ScannerViewController: UIViewController {
         view.layer.addSublayer(videoPreviewLayer)
         quadView.translatesAutoresizingMaskIntoConstraints = false
         quadView.editable = false
+        super.viewDidLoad()
+
+//         let overlayView = QRScannerOverlayView(frame: view.bounds)
+//         //         Thêm overlayImageView
+//         overlayImageView = UIImageView(frame: quadView.frame)
+//         //        overlayImageView.image = UIImage(named: "layer", in: Bundle(for: ScannerViewController.self), compatibleWith: nil)
+//         overlayImageView.contentMode = .scaleToFill
+//         overlayView.backgroundColor = .clear
+//
+//         view.addSubview(overlayView)
+//
+//         view.addSubview(overlayImageView)
         view.addSubview(quadView)
         view.addSubview(cancelButton)
         view.addSubview(shutterButton)
@@ -130,14 +192,14 @@ public final class ScannerViewController: UIViewController {
     }
 
     private func setupNavigationBar() {
-        navigationItem.setLeftBarButton(flashButton, animated: false)
-        navigationItem.setRightBarButton(autoScanButton, animated: false)
-
-        if UIImagePickerController.isFlashAvailable(for: .rear) == false {
-            let flashOffImage = UIImage(systemName: "bolt.slash.fill", named: "flashUnavailable", in: Bundle(for: ScannerViewController.self), compatibleWith: nil)
-            flashButton.image = flashOffImage
-            flashButton.tintColor = UIColor.lightGray
-        }
+//         navigationItem.setLeftBarButton(flashButton, animated: false)
+//         navigationItem.setRightBarButton(autoScanButton, animated: false)
+//
+//         if UIImagePickerController.isFlashAvailable(for: .rear) == false {
+//             let flashOffImage = UIImage(systemName: "bolt.slash.fill", named: "flashUnavailable", in: Bundle(for: ScannerViewController.self), compatibleWith: nil)
+//             flashButton.image = flashOffImage
+//             flashButton.tintColor = UIColor.lightGray
+//         }
     }
 
     private func setupConstraints() {
@@ -236,34 +298,34 @@ public final class ScannerViewController: UIViewController {
     @objc private func toggleAutoScan() {
         if CaptureSession.current.isAutoScanEnabled {
             CaptureSession.current.isAutoScanEnabled = false
-            autoScanButton.title = NSLocalizedString("wescan.scanning.manual", tableName: nil, bundle: Bundle(for: ScannerViewController.self), value: "Manual", comment: "The manual button state")
+//             autoScanButton.title = NSLocalizedString("wescan.scanning.manual", tableName: nil, bundle: Bundle(for: ScannerViewController.self), value: "Manual", comment: "The manual button state")
         } else {
-            CaptureSession.current.isAutoScanEnabled = true
-            autoScanButton.title = NSLocalizedString("wescan.scanning.auto", tableName: nil, bundle: Bundle(for: ScannerViewController.self), value: "Auto", comment: "The auto button state")
+            CaptureSession.current.isAutoScanEnabled = false
+//             autoScanButton.title = NSLocalizedString("wescan.scanning.auto", tableName: nil, bundle: Bundle(for: ScannerViewController.self), value: "Auto", comment: "The auto button state")
         }
     }
 
-    @objc private func toggleFlash() {
-        let state = CaptureSession.current.toggleFlash()
-
-        let flashImage = UIImage(systemName: "bolt.fill", named: "flash", in: Bundle(for: ScannerViewController.self), compatibleWith: nil)
-        let flashOffImage = UIImage(systemName: "bolt.slash.fill", named: "flashUnavailable", in: Bundle(for: ScannerViewController.self), compatibleWith: nil)
-
-        switch state {
-        case .on:
-            flashEnabled = true
-            flashButton.image = flashImage
-            flashButton.tintColor = .yellow
-        case .off:
-            flashEnabled = false
-            flashButton.image = flashImage
-            flashButton.tintColor = .white
-        case .unknown, .unavailable:
-            flashEnabled = false
-            flashButton.image = flashOffImage
-            flashButton.tintColor = UIColor.lightGray
-        }
-    }
+//     @objc private func toggleFlash() {
+//         let state = CaptureSession.current.toggleFlash()
+//
+//         let flashImage = UIImage(systemName: "bolt.fill", named: "flash", in: Bundle(for: ScannerViewController.self), compatibleWith: nil)
+//         let flashOffImage = UIImage(systemName: "bolt.slash.fill", named: "flashUnavailable", in: Bundle(for: ScannerViewController.self), compatibleWith: nil)
+//
+//         switch state {
+//         case .on:
+//             flashEnabled = true
+//             flashButton.image = flashImage
+//             flashButton.tintColor = .yellow
+//         case .off:
+//             flashEnabled = false
+//             flashButton.image = flashImage
+//             flashButton.tintColor = .white
+//         case .unknown, .unavailable:
+//             flashEnabled = false
+//             flashButton.image = flashOffImage
+//             flashButton.tintColor = UIColor.lightGray
+//         }
+//     }
 
     @objc private func cancelImageScannerController() {
         guard let imageScannerController = navigationController as? ImageScannerController else { return }

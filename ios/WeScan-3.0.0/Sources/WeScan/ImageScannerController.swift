@@ -4,8 +4,12 @@
 //
 //  Created by Boris Emorine on 2/12/18.
 //  Copyright © 2018 WeTransfer. All rights reserved.
-//
+//Xử lý ảnh sau khi chụp
+//Perspective correction
 
+  //Crop ảnh
+
+  //Enhance contrast
 import AVFoundation
 import UIKit
 
@@ -172,8 +176,33 @@ public struct ImageScannerScan {
         guard rotationAngle.value != 0, rotationAngle.value != 360 else { return }
         image = image.rotated(by: rotationAngle) ?? image
     }
-}
+    mutating func resizeByCorners(topLeft: CGPoint, topRight: CGPoint, bottomLeft: CGPoint, bottomRight: CGPoint) {
+            let newWidth = topRight.x - topLeft.x
+            let newHeight = bottomLeft.y - topLeft.y
+            let newSize = CGSize(width: newWidth, height: newHeight)
 
+            guard let resizedImage = image.resized(to: newSize) else {
+                return
+            }
+
+            image = resizedImage
+        }
+}
+// khuong
+extension UIImage {
+    func resized(to newSize: CGSize) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(newSize, false, UIScreen.main.scale)
+        defer { UIGraphicsEndImageContext() }
+
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return nil
+        }
+
+        self.draw(in: CGRect(origin: .zero, size: newSize))
+
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+}
 /// Data structure containing information about a scanning session.
 /// Includes the original scan, cropped scan, detected rectangle, and whether the user selected the enhanced scan.
 /// May also include an enhanced scan if no errors were encountered.

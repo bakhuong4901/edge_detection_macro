@@ -5,8 +5,52 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f08b3923-f33b-4d39-b5f6-cea7d389432e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/QrScannerOverlayView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/crop/CropActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/crop/CropActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/scan/ScanActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/scan/ScanActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Runner/AppDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner/AppDelegate.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/HomeViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/HomeViewController.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/SwiftEdgeDetectionPlugin.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/SwiftEdgeDetectionPlugin.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Common/Quadrilateral.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Common/Quadrilateral.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Common/QuadrilateralView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Common/QuadrilateralView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Common/VisionRectangleDetector.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Common/VisionRectangleDetector.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Edit/EditScanViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Edit/EditScanViewController.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Edit/ZoomGestureController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Edit/ZoomGestureController.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/ImageScannerController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/ImageScannerController.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Resources/Localisation/ar.lproj/Localizable.strings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Resources/Localisation/cs.lproj/Localizable.strings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Resources/Localisation/de.lproj/Localizable.strings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Resources/Localisation/en.lproj/Localizable.strings" beforeDir="false" afterPath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Resources/Localisation/en.lproj/Localizable.strings" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Resources/Localisation/es-419.lproj/Localizable.strings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Resources/Localisation/es.lproj/Localizable.strings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Resources/Localisation/fr.lproj/Localizable.strings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Resources/Localisation/hu.lproj/Localizable.strings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Resources/Localisation/it.lproj/Localizable.strings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Resources/Localisation/ko.lproj/Localizable.strings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Resources/Localisation/nl.lproj/Localizable.strings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Resources/Localisation/pl.lproj/Localizable.strings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Resources/Localisation/pt-BR.lproj/Localizable.strings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Resources/Localisation/pt-PT.lproj/Localizable.strings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Resources/Localisation/ru.lproj/Localizable.strings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Resources/Localisation/sv.lproj/Localizable.strings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Resources/Localisation/tr.lproj/Localizable.strings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Resources/Localisation/zh-Hans.lproj/Localizable.strings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Resources/Localisation/zh-Hant.lproj/Localizable.strings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Review/ReviewViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Review/ReviewViewController.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/CameraScannerViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/CameraScannerViewController.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/CaptureSessionManager.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/CaptureSessionManager.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/RectangleFeaturesFunnel.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/RectangleFeaturesFunnel.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/ScannerViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/ScannerViewController.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Session/CaptureSession.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Session/CaptureSession.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/ja.lproj/Localizable.strings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,7 +60,25 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "devtmsc"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/sawankumarbundelkhandi/edge_detection.git",
+    "accountId": "50f63314-4b98-476f-a9fb-b1ec2dc9240f"
+  }
+}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="20ljkmskWJLGe2NakWfeESIRhXP" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1" />
     <panes>
@@ -29,17 +91,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
-    <property name="cidr.known.project.marker" value="true" />
-    <property name="dart.analysis.tool.window.force.activate" value="true" />
-    <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Bonpedia-app-back/Bonpedia-app" />
-    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
-    <property name="show.migrate.to.gradle.popup" value="false" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Flutter.example/lib/main.dart.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "master",
+    "io.flutter.project.isFirstOpen": "true",
+    "io.flutter.reload.alreadyRun": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/dev/edge_detection",
+    "settings.editor.selected.configurable": "flutter.settings",
+    "show.migrate.to.gradle.popup": "false",
+    "two.files.diff.last.used.folder": "/Users/dev/Documents/Wescan-macro/WeScan"
+  }
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\ahmad\Desktop\edge_detection\android\src\main\kotlin\com\sample\edgedetection\processor" />
     </key>
@@ -71,6 +146,5 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

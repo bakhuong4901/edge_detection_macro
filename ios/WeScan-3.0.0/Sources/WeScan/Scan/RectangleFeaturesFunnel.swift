@@ -6,7 +6,12 @@
 //  Copyright © 2018 WeTransfer. All rights reserved.
 //
 //  swiftlint:disable line_length
+// phát hiện biên tài liệu
+// Nhận CMSampleBuffer
 
+   // Phát hiện hình chữ nhật
+
+   // Trả về 4 điểm corner
 import AVFoundation
 import Foundation
 

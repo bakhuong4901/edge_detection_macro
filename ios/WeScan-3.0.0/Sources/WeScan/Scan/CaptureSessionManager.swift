@@ -4,7 +4,13 @@
 //
 //  Created by Boris Emorine on 2/8/18.
 //  Copyright © 2018 WeTransfer. All rights reserved.
-//
+//Khởi tạo camera
+
+  //Auto focus / exposure
+
+  //Switch camera (nếu có)
+
+  //Điều phối output frame
 
 import AVFoundation
 import CoreMotion
@@ -55,6 +61,7 @@ final class CaptureSessionManager: NSObject, AVCaptureVideoDataOutputSampleBuffe
     weak var delegate: RectangleDetectionDelegateProtocol?
     private var displayedRectangleResult: RectangleDetectorResult?
     private var photoOutput = AVCapturePhotoOutput()
+    private var currentZoomFactor: CGFloat = 2
 
     /// Whether the CaptureSessionManager should be detecting quadrilaterals.
     private var isDetecting = true
@@ -83,6 +90,13 @@ final class CaptureSessionManager: NSObject, AVCaptureVideoDataOutputSampleBuffe
         }
 
         captureSession.beginConfiguration()
+
+         let photoPreset = AVCaptureSession.Preset.photo
+
+        if captureSession.canSetSessionPreset(photoPreset) {
+            captureSession.sessionPreset = photoPreset
+        }
+
 
         photoOutput.isHighResolutionCaptureEnabled = true
 
@@ -117,15 +131,15 @@ final class CaptureSessionManager: NSObject, AVCaptureVideoDataOutputSampleBuffe
         captureSession.addOutput(photoOutput)
         captureSession.addOutput(videoOutput)
 
-        let photoPreset = AVCaptureSession.Preset.photo
-
-        if captureSession.canSetSessionPreset(photoPreset) {
-            captureSession.sessionPreset = photoPreset
-
-            if photoOutput.isLivePhotoCaptureSupported {
-                photoOutput.isLivePhotoCaptureEnabled = true
-            }
-        }
+//         let photoPreset = AVCaptureSession.Preset.photo
+//
+//         if captureSession.canSetSessionPreset(photoPreset) {
+//             captureSession.sessionPreset = photoPreset
+//
+//             if photoOutput.isLivePhotoCaptureSupported {
+//                 photoOutput.isLivePhotoCaptureEnabled = true
+//             }
+//         }
 
         videoPreviewLayer.session = captureSession
         videoPreviewLayer.videoGravity = .resizeAspectFill
@@ -159,6 +173,24 @@ final class CaptureSessionManager: NSObject, AVCaptureVideoDataOutputSampleBuffe
 
     internal func stop() {
         captureSession.stopRunning()
+    }
+   func setZoomFactor(_ zoomFactor: CGFloat) {
+        guard let device = AVCaptureDevice.default(for: AVMediaType.video) else {
+            return
+        }
+
+        do {
+            try device.lockForConfiguration()
+            defer {
+                device.unlockForConfiguration()
+            }
+
+            let newZoomFactor = max(1.0, min(zoomFactor, device.activeFormat.videoMaxZoomFactor))
+            device.videoZoomFactor = newZoomFactor
+            currentZoomFactor = newZoomFactor
+        } catch {
+            print("Error setting zoom factor: \(error)")
+        }
     }
 
     internal func capturePhoto() {
@@ -194,6 +226,8 @@ final class CaptureSessionManager: NSObject, AVCaptureVideoDataOutputSampleBuffe
                 self.processRectangle(rectangle: rectangle, imageSize: imageSize)
             }
         }
+                setZoomFactor(currentZoomFactor)
+
     }
 
     private func processRectangle(rectangle: Quadrilateral?, imageSize: CGSize) {
