@@ -194,3 +194,4 @@ Using these native implementation
 <a>https://github.com/WeTransfer/WeScan</a>
 
 <a>https://github.com/KePeng1019/SmartPaperScan</a>
+# edge_detection_macro
