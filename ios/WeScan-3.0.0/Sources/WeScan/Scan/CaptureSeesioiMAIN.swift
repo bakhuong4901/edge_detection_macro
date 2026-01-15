@@ -1,3 +1,17 @@
+//
+//  CaptureManager.swift
+//  WeScan
+//
+//  Created by Boris Emorine on 2/8/18.
+//  Copyright © 2018 WeTransfer. All rights reserved.
+//Khởi tạo camera
+
+  //Auto focus / exposure
+
+  //Switch camera (nếu có)
+
+  //Điều phối output frame
+
 import AVFoundation
 import CoreMotion
 import Foundation
@@ -5,12 +19,40 @@ import UIKit
 
 /// A set of functions that inform the delegate object of the state of the detection.
 protocol RectangleDetectionDelegateProtocol: NSObjectProtocol {
+
+    /// Called when the capture of a picture has started.
+    ///
+    /// - Parameters:
+    ///   - captureSessionManager: The `CaptureSessionManager` instance that started capturing a picture.
     func didStartCapturingPicture(for captureSessionManager: CaptureSessionManager)
+
+    /// Called when a quadrilateral has been detected.
+    /// - Parameters:
+    ///   - captureSessionManager: The `CaptureSessionManager` instance that has detected a quadrilateral.
+    ///   - quad: The detected quadrilateral in the coordinates of the image.
+    ///   - imageSize: The size of the image the quadrilateral has been detected on.
     func captureSessionManager(_ captureSessionManager: CaptureSessionManager, didDetectQuad quad: Quadrilateral?, _ imageSize: CGSize)
-    func captureSessionManager(_ captureSessionManager: CaptureSessionManager, didCapturePicture picture: UIImage, withQuad quad: Quadrilateral?)
+
+    /// Called when a picture with or without a quadrilateral has been captured.
+    ///
+    /// - Parameters:
+    ///   - captureSessionManager: The `CaptureSessionManager` instance that has captured a picture.
+    ///   - picture: The picture that has been captured.
+    ///   - quad: The quadrilateral that was detected in the picture's coordinates if any.
+    func captureSessionManager(
+        _ captureSessionManager: CaptureSessionManager,
+        didCapturePicture picture: UIImage,
+        withQuad quad: Quadrilateral?
+    )
+
+    /// Called when an error occurred with the capture session manager.
+    /// - Parameters:
+    ///   - captureSessionManager: The `CaptureSessionManager` that encountered an error.
+    ///   - error: The encountered error.
     func captureSessionManager(_ captureSessionManager: CaptureSessionManager, didFailWithError error: Error)
 }
 
+/// The CaptureSessionManager is responsible for setting up and managing the AVCaptureSession and the functions related to capturing.
 final class CaptureSessionManager: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
 
     private let videoPreviewLayer: AVCaptureVideoPreviewLayer
@@ -19,13 +61,15 @@ final class CaptureSessionManager: NSObject, AVCaptureVideoDataOutputSampleBuffe
     weak var delegate: RectangleDetectionDelegateProtocol?
     private var displayedRectangleResult: RectangleDetectorResult?
     private var photoOutput = AVCapturePhotoOutput()
+    private var currentZoomFactor: CGFloat = 2
 
-    // Giữ nguyên logic zoom cũ nếu cần, nhưng mặc định là 1.0 cho ảnh sắc nét nhất
-    private var currentZoomFactor: CGFloat = 2.0
-    private var supportsMacro: Bool = false
-
+    /// Whether the CaptureSessionManager should be detecting quadrilaterals.
     private var isDetecting = true
+
+    /// The number of times no rectangles have been found in a row.
     private var noRectangleCount = 0
+
+    /// The minimum number of time required by `noRectangleCount` to validate that no rectangles have been found.
     private let noRectangleThreshold = 3
 
     // MARK: Life Cycle
@@ -38,75 +82,21 @@ final class CaptureSessionManager: NSObject, AVCaptureVideoDataOutputSampleBuffe
         }
 
         super.init()
-        // --- LOG DEBUG BẮT ĐẦU ---
-        print("\n========================================================")
-        print("[WeScan DEBUG] Bắt đầu khởi tạo Camera...")
-        print("[WeScan DEBUG] Phiên bản iOS: \(UIDevice.current.systemVersion)")
-        print("[WeScan DEBUG] Tên máy: \(UIDevice.current.name)")
-        // --- LOG DEBUG KẾT THÚC ---
 
-        // ---------------------------------------------------------------------
-        // LOGIC CHỌN CAMERA THÔNG MINH (HYBRID)
-        // ---------------------------------------------------------------------
-
-        // ---------------------------------------------------------------------
-        // LOGIC CHỌN CAMERA THÔNG MINH (HYBRID)
-        // ---------------------------------------------------------------------
-        var selectedDevice: AVCaptureDevice?
-
-        if #available(iOS 13.0, *) {
-            // Bước 1: Chỉ tìm cụm Camera xịn (Triple/DualWide) hỗ trợ Macro tự động
-            // Logic: Nếu tìm thấy những loại này -> Chắc chắn là máy đời cao (13 Pro, 14, 15...)
-            let proDeviceTypes: [AVCaptureDevice.DeviceType] = [
-                .builtInTripleCamera,
-                .builtInDualWideCamera
-            ]
-
-            let discoverySession = AVCaptureDevice.DiscoverySession(
-                deviceTypes: proDeviceTypes,
-                mediaType: .video,
-                position: .back
-            )
-            selectedDevice = discoverySession.devices.first
-            print("[WeScan DEBUG] -> Đã tìm thấy Camera Pro (Macro OK): \(selectedDevice)")
-
-        }
-
-        // Bước 2: Nếu KHÔNG tìm thấy máy đời cao (Tức là iPhone 8, X, 11, SE...)
-        // Quay về dùng phương pháp lấy camera chuẩn (Standard) như code cũ.
-        // Điều này đảm bảo iPhone 8 hoạt động y hệt như trước đây, không bị mờ.
-        if selectedDevice == nil {
-            print("[WeScan DEBUG] -> Chuyển sang chế độ Standard (cho iPhone 8/X/Legacy).")
-            selectedDevice = AVCaptureDevice.default(for: .video)
-        }
-
-        guard let device = selectedDevice else {
-            print("[WeScan DEBUG] -> LỖI: Không khởi tạo được bất kỳ camera nào!")
+        guard let device = AVCaptureDevice.default(for: AVMediaType.video) else {
             let error = ImageScannerControllerError.inputDevice
             delegate?.captureSessionManager(self, didFailWithError: error)
             return nil
         }
-        print("Using camera:", device.localizedName)
-        print("Device type:", device.deviceType.rawValue)
-        print("========================================================\n")
-        // ---------------------------------------------------------------------
-        // MARK: - Detect Macro capability
-        if #available(iOS 13.0, *) {
-        if device.deviceType == .builtInTripleCamera ||
-        device.deviceType == .builtInDualWideCamera {
-        supportsMacro = true
-        }
-        }
 
-        currentZoomFactor = supportsMacro ? 1.0 : 2.0
-        print("Supports Macro:", supportsMacro)
-        print("Initial Zoom:", currentZoomFactor)
         captureSession.beginConfiguration()
 
-        let photoPreset = AVCaptureSession.Preset.photo
+         let photoPreset = AVCaptureSession.Preset.photo
+
         if captureSession.canSetSessionPreset(photoPreset) {
             captureSession.sessionPreset = photoPreset
         }
+
 
         photoOutput.isHighResolutionCaptureEnabled = true
 
@@ -119,35 +109,16 @@ final class CaptureSessionManager: NSObject, AVCaptureVideoDataOutputSampleBuffe
         }
 
         guard let deviceInput = try? AVCaptureDeviceInput(device: device),
-        captureSession.canAddInput(deviceInput),
-        captureSession.canAddOutput(photoOutput),
-        captureSession.canAddOutput(videoOutput) else {
-            let error = ImageScannerControllerError.inputDevice
-            delegate?.captureSessionManager(self, didFailWithError: error)
-            return
+            captureSession.canAddInput(deviceInput),
+            captureSession.canAddOutput(photoOutput),
+            captureSession.canAddOutput(videoOutput) else {
+                let error = ImageScannerControllerError.inputDevice
+                delegate?.captureSessionManager(self, didFailWithError: error)
+                return
         }
 
-        // Cấu hình Focus
         do {
             try device.lockForConfiguration()
-
-            // Chỉ bật Continuous Focus, không can thiệp sâu vào Zoom của máy đời cũ
-            if device.isFocusModeSupported(.continuousAutoFocus) {
-                device.focusMode = .continuousAutoFocus
-            }
-
-            // Chỉ reset Zoom về 1.0 nếu là máy đời cao (Triple/DualWide) để tránh lỗi nhảy lens
-            // Với iPhone 8, giữ nguyên mặc định của hệ thống
-            if #available(iOS 13.0, *) {
-                if device.deviceType == .builtInTripleCamera || device.deviceType == .builtInDualWideCamera {
-                    print("[WeScan DEBUG] -> Đang reset Zoom về 1.0 cho Camera Pro.")
-                    device.videoZoomFactor = 1.0
-                }
-                else {
-                    print("[WeScan DEBUG] -> Giữ nguyên Zoom mặc định của hệ thống (Máy thường).")
-                }
-            }
-
         } catch {
             let error = ImageScannerControllerError.inputDevice
             delegate?.captureSessionManager(self, didFailWithError: error)
@@ -160,6 +131,16 @@ final class CaptureSessionManager: NSObject, AVCaptureVideoDataOutputSampleBuffe
         captureSession.addOutput(photoOutput)
         captureSession.addOutput(videoOutput)
 
+//         let photoPreset = AVCaptureSession.Preset.photo
+//
+//         if captureSession.canSetSessionPreset(photoPreset) {
+//             captureSession.sessionPreset = photoPreset
+//
+//             if photoOutput.isLivePhotoCaptureSupported {
+//                 photoOutput.isLivePhotoCaptureEnabled = true
+//             }
+//         }
+
         videoPreviewLayer.session = captureSession
         videoPreviewLayer.videoGravity = .resizeAspectFill
 
@@ -168,6 +149,7 @@ final class CaptureSessionManager: NSObject, AVCaptureVideoDataOutputSampleBuffe
 
     // MARK: Capture Session Life Cycle
 
+    /// Starts the camera and detecting quadrilaterals.
     internal func start() {
         let authorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
 
@@ -192,16 +174,16 @@ final class CaptureSessionManager: NSObject, AVCaptureVideoDataOutputSampleBuffe
     internal func stop() {
         captureSession.stopRunning()
     }
-
-    // Hàm Zoom cũ: Giữ lại để tương thích, nhưng sửa logic lấy device an toàn hơn
-    func setZoomFactor(_ zoomFactor: CGFloat) {
-        // Lấy đúng device đang input vào session
-        guard let input = captureSession.inputs.first as? AVCaptureDeviceInput else { return }
-        let device = input.device
+   func setZoomFactor(_ zoomFactor: CGFloat) {
+        guard let device = AVCaptureDevice.default(for: AVMediaType.video) else {
+            return
+        }
 
         do {
             try device.lockForConfiguration()
-            defer { device.unlockForConfiguration() }
+            defer {
+                device.unlockForConfiguration()
+            }
 
             let newZoomFactor = max(1.0, min(zoomFactor, device.activeFormat.videoMaxZoomFactor))
             device.videoZoomFactor = newZoomFactor
@@ -228,7 +210,7 @@ final class CaptureSessionManager: NSObject, AVCaptureVideoDataOutputSampleBuffe
 
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard isDetecting == true,
-        let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+            let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             return
         }
 
@@ -244,18 +226,20 @@ final class CaptureSessionManager: NSObject, AVCaptureVideoDataOutputSampleBuffe
                 self.processRectangle(rectangle: rectangle, imageSize: imageSize)
             }
         }
-        setZoomFactor(currentZoomFactor) // code chạy ngon vãi loèn rồi hẹ hẹ ÂU RA
+                setZoomFactor(currentZoomFactor)
 
-
-        // Không gọi setZoomFactor liên tục ở đây để tránh lag và xung đột lấy nét trên máy yếu
     }
 
     private func processRectangle(rectangle: Quadrilateral?, imageSize: CGSize) {
         if let rectangle {
+
             self.noRectangleCount = 0
             self.rectangleFunnel
-            .add(rectangle, currentlyDisplayedRectangle: self.displayedRectangleResult?.rectangle) { [weak self] result, rectangle in
-                guard let self else { return }
+                .add(rectangle, currentlyDisplayedRectangle: self.displayedRectangleResult?.rectangle) { [weak self] result, rectangle in
+
+                guard let self else {
+                    return
+                }
 
                 let shouldAutoScan = (result == .showAndAutoScan)
                 self.displayRectangleResult(rectangleResult: RectangleDetectorResult(rectangle: rectangle, imageSize: imageSize))
@@ -263,59 +247,78 @@ final class CaptureSessionManager: NSObject, AVCaptureVideoDataOutputSampleBuffe
                     capturePhoto()
                 }
             }
+
         } else {
+
             DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
+                guard let self else {
+                    return
+                }
                 self.noRectangleCount += 1
 
                 if self.noRectangleCount > self.noRectangleThreshold {
+                    // Reset the currentAutoScanPassCount, so the threshold is restarted the next time a rectangle is found
                     self.rectangleFunnel.currentAutoScanPassCount = 0
+
+                    // Remove the currently displayed rectangle as no rectangles are being found anymore
                     self.displayedRectangleResult = nil
                     self.delegate?.captureSessionManager(self, didDetectQuad: nil, imageSize)
                 }
             }
             return
+
         }
     }
 
     @discardableResult private func displayRectangleResult(rectangleResult: RectangleDetectorResult) -> Quadrilateral {
         displayedRectangleResult = rectangleResult
+
         let quad = rectangleResult.rectangle.toCartesian(withHeight: rectangleResult.imageSize.height)
+
         DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
+            guard let self else {
+                return
+            }
+
             self.delegate?.captureSessionManager(self, didDetectQuad: quad, rectangleResult.imageSize)
         }
+
         return quad
     }
+
 }
 
 extension CaptureSessionManager: AVCapturePhotoCaptureDelegate {
+
+    // swiftlint:disable function_parameter_count
     func photoOutput(_ captureOutput: AVCapturePhotoOutput,
-    didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?,
-    previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?,
-    resolvedSettings: AVCaptureResolvedPhotoSettings,
-    bracketSettings: AVCaptureBracketedStillImageSettings?,
-    error: Error?
+                     didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?,
+                     previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?,
+                     resolvedSettings: AVCaptureResolvedPhotoSettings,
+                     bracketSettings: AVCaptureBracketedStillImageSettings?,
+                     error: Error?
     ) {
         if let error {
             delegate?.captureSessionManager(self, didFailWithError: error)
             return
         }
+
         isDetecting = false
         rectangleFunnel.currentAutoScanPassCount = 0
         delegate?.didStartCapturingPicture(for: self)
 
         if let sampleBuffer = photoSampleBuffer,
-        let imageData = AVCapturePhotoOutput.jpegPhotoDataRepresentation(
-            forJPEGSampleBuffer: sampleBuffer,
-            previewPhotoSampleBuffer: nil
-        ) {
+            let imageData = AVCapturePhotoOutput.jpegPhotoDataRepresentation(
+                forJPEGSampleBuffer: sampleBuffer,
+                previewPhotoSampleBuffer: nil
+            ) {
             completeImageCapture(with: imageData)
         } else {
             let error = ImageScannerControllerError.capture
             delegate?.captureSessionManager(self, didFailWithError: error)
             return
         }
+
     }
 
     @available(iOS 11.0, *)
@@ -324,9 +327,11 @@ extension CaptureSessionManager: AVCapturePhotoCaptureDelegate {
             delegate?.captureSessionManager(self, didFailWithError: error)
             return
         }
+
         isDetecting = false
         rectangleFunnel.currentAutoScanPassCount = 0
         delegate?.didStartCapturingPicture(for: self)
+
         if let imageData = photo.fileDataRepresentation() {
             completeImageCapture(with: imageData)
         } else {
@@ -336,23 +341,31 @@ extension CaptureSessionManager: AVCapturePhotoCaptureDelegate {
         }
     }
 
+    /// Completes the image capture by processing the image, and passing it to the delegate object.
+    /// This function is necessary because the capture functions for iOS 10 and 11 are decoupled.
     private func completeImageCapture(with imageData: Data) {
         DispatchQueue.global(qos: .background).async { [weak self] in
             CaptureSession.current.isEditing = true
             guard let image = UIImage(data: imageData) else {
                 let error = ImageScannerControllerError.capture
                 DispatchQueue.main.async {
-                    guard let self else { return }
+                    guard let self else {
+                        return
+                    }
                     self.delegate?.captureSessionManager(self, didFailWithError: error)
                 }
                 return
             }
 
             var angle: CGFloat = 0.0
+
             switch image.imageOrientation {
-            case .right: angle = CGFloat.pi / 2
-            case .up: angle = CGFloat.pi
-            default: break
+            case .right:
+                angle = CGFloat.pi / 2
+            case .up:
+                angle = CGFloat.pi
+            default:
+                break
             }
 
             var quad: Quadrilateral?
@@ -362,14 +375,22 @@ extension CaptureSessionManager: AVCapturePhotoCaptureDelegate {
             }
 
             DispatchQueue.main.async {
-                guard let self else { return }
+                guard let self else {
+                    return
+                }
                 self.delegate?.captureSessionManager(self, didCapturePicture: image, withQuad: quad)
             }
         }
     }
 }
 
+/// Data structure representing the result of the detection of a quadrilateral.
 private struct RectangleDetectorResult {
+
+    /// The detected quadrilateral.
     let rectangle: Quadrilateral
+
+    /// The size of the image the quadrilateral was detected on.
     let imageSize: CGSize
+
 }
