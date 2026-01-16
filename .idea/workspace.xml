@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f08b3923-f33b-4d39-b5f6-cea7d389432e" name="Default Changelist" comment="macro done luôn pú lấy nét cho camera gốc rộng ios">
+    <list default="true" id="f08b3923-f33b-4d39-b5f6-cea7d389432e" name="Default Changelist" comment="fix xong macro và bật flash không bị đơ cho cả iphone đời cao và đời thấp">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/ScannerViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/ScannerViewController.swift" afterDir="false" />
     </list>
@@ -108,7 +108,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768460836554</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fix xong macro và bật flash không bị đơ cho cả iphone đời cao và đời thấp">
+      <option name="closed" value="true" />
+      <created>1768551917596</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1768551917596</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -131,6 +139,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="tesst camera mcacro" />
     <MESSAGE value="macro done luôn pú lấy nét cho camera gốc rộng ios" />
-    <option name="LAST_COMMIT_MESSAGE" value="macro done luôn pú lấy nét cho camera gốc rộng ios" />
+    <MESSAGE value="fix xong macro và bật flash không bị đơ cho cả iphone đời cao và đời thấp" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix xong macro và bật flash không bị đơ cho cả iphone đời cao và đời thấp" />
   </component>
 </project>

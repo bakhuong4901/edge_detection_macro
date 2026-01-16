@@ -317,6 +317,7 @@ public final class ScannerViewController: UIViewController {
         }
 
         /// Remove the focus rectangle if one exists
+        // Cái này hiển thị khi ấn vào màn hình tập trung 1 điểm có sẽ ô vuông màu vàng bắt vào
         CaptureSession.current.removeFocusRectangleIfNeeded(focusRectangle, animated: true)
     }
 
@@ -327,10 +328,13 @@ public final class ScannerViewController: UIViewController {
         let touchPoint = touch.location(in: view)
         let convertedTouchPoint: CGPoint = videoPreviewLayer.captureDevicePointConverted(fromLayerPoint: touchPoint)
 
+// Cái này hiển thị khi ấn vào màn hình tập trung 1 điểm có sẽ ô vuông màu vàng bắt vào
+
         CaptureSession.current.removeFocusRectangleIfNeeded(focusRectangle, animated: false)
 
         focusRectangle = FocusRectangleView(touchPoint: touchPoint)
         view.addSubview(focusRectangle)
+                //
 
         do {
             try CaptureSession.current.setFocusPointToTapPoint(convertedTouchPoint)
