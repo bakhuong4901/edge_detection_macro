@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f08b3923-f33b-4d39-b5f6-cea7d389432e" name="Default Changelist" comment="tesst camera mcacro">
-      <change afterPath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/CaptureSeesioiMAIN.swift" afterDir="false" />
+    <list default="true" id="f08b3923-f33b-4d39-b5f6-cea7d389432e" name="Default Changelist" comment="macro done luôn pú lấy nét cho camera gốc rộng ios">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/CaptureSessionManager.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/CaptureSessionManager.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/ScannerViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/ScannerViewController.swift" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,27 +54,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultSwiftTemplate": "Swift File",
-    "Flutter.example/lib/main.dart.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "master",
-    "io.flutter.project.isFirstOpen": "true",
-    "io.flutter.reload.alreadyRun": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/dev/edge_detection",
-    "settings.editor.selected.configurable": "flutter.settings",
-    "show.migrate.to.gradle.popup": "false",
-    "two.files.diff.last.used.folder": "/Users/dev/Documents/Wescan-macro/WeScan"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultSwiftTemplate&quot;: &quot;Swift File&quot;,
+    &quot;Flutter.example/lib/main.dart.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;io.flutter.project.isFirstOpen&quot;: &quot;true&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/dev/edge_detection&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;flutter.settings&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
+    &quot;two.files.diff.last.used.folder&quot;: &quot;/Users/dev/Documents/Wescan-macro/WeScan&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan" />
@@ -101,7 +100,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768365912243</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="macro done luôn pú lấy nét cho camera gốc rộng ios">
+      <option name="closed" value="true" />
+      <created>1768460836554</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1768460836554</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -123,6 +130,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="tesst camera mcacro" />
-    <option name="LAST_COMMIT_MESSAGE" value="tesst camera mcacro" />
+    <MESSAGE value="macro done luôn pú lấy nét cho camera gốc rộng ios" />
+    <option name="LAST_COMMIT_MESSAGE" value="macro done luôn pú lấy nét cho camera gốc rộng ios" />
   </component>
 </project>

@@ -30,6 +30,8 @@ public final class ScannerViewController: UIViewController {
     /// Whether flash is enabled
     private var flashEnabled = false
     private var isFlashOn = false
+    private var torchRetryCount = 0
+    private let maxTorchRetries = 5
 
     /// The original bar style that was set by the host app
     private var originalBarStyle: UIBarStyle?
@@ -71,36 +73,82 @@ public final class ScannerViewController: UIViewController {
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         return activityIndicator
     }()
-func toggleTorch(on: Bool) {
-        guard let device = AVCaptureDevice.default(for: .video) else { return }
-
-        if device.hasTorch {
-            do {
-                try device.lockForConfiguration()
-                if on {
-                // nếu là on thì độ sáng mặc định là 1 là cao nhất của flash (đọ sáng của flash từ 0.0 đến 1)
-//                    device.torchMode = .on
-                // Khuong set độ sáng của đèn flash
-                    try device.setTorchModeOn(level: 1)
-                    isFlashOn = true
-
-                    // Đo ánh sáng tự nhiên và điều chỉnh flash dựa trên giá trị đo được
-//                let flashIntensity = calculateFlashIntensityBasedOnAmbientLight()
-//                try device.setTorchModeOn(level: flashIntensity)
-                isFlashOn = true
-                } else {
-                    device.torchMode = .off
-                    isFlashOn = false
-                }
-
-                device.unlockForConfiguration()
-            } catch {
-                print("Torch could not be used")
+    /// Helper method để bật flash tự động sau khi camera session đã sẵn sàng
+    /// Quan trọng cho iPhone 13 Pro+ để tránh lỗi đơ khi mở camera
+    private func enableTorchWhenReady() {
+        // Kiểm tra session đã running chưa
+        guard let session = videoPreviewLayer.session, session.isRunning else {
+            // Nếu chưa running, đợi một chút rồi thử lại (tối đa maxTorchRetries lần)
+            guard torchRetryCount < maxTorchRetries else {
+                print("Torch: Max retries reached, giving up")
+                return
             }
-        } else {
+            torchRetryCount += 1
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                self?.enableTorchWhenReady()
+            }
+            return
+        }
+
+        // Reset counter khi thành công
+        torchRetryCount = 0
+        // Session đã running, bật flash
+        toggleTorch(on: true)
+    }
+
+    func toggleTorch(on: Bool) {
+        // Lấy device từ capture session thay vì default để tránh lỗi trên iPhone 13 Pro+
+        guard let session = videoPreviewLayer.session,
+              let input = session.inputs.first as? AVCaptureDeviceInput else {
+            print("Torch: Cannot get device from capture session")
+            return
+        }
+
+        let device = input.device
+
+        // Kiểm tra session đang running trước khi bật flash (quan trọng cho iPhone 13 Pro+)
+        guard session.isRunning else {
+            print("Torch: Session is not running yet, will retry")
+            // Nếu session chưa running và muốn bật flash, đợi một chút rồi thử lại
+            if on {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                    self?.toggleTorch(on: true)
+                }
+            }
+            return
+        }
+
+        guard device.hasTorch else {
             print("Torch is not available")
+            return
+        }
+        do {
+            try device.lockForConfiguration()
+            defer {
+                device.unlockForConfiguration()
+            }
+
+            if on {
+                // Kiểm tra torch có available không (quan trọng cho iPhone 13 Pro+)
+                guard device.isTorchAvailable else {
+                    print("Torch is not available at this time")
+                    return
+                }
+                // nếu là on thì độ sáng mặc định là 1 là cao nhất của flash (độ sáng của flash từ 0.0 đến 1)
+                // Khuong set độ sáng của đèn flash
+                try device.setTorchModeOn(level: 1)
+                isFlashOn = true
+            } else {
+                device.torchMode = .off
+                isFlashOn = false
+            }
+        } catch {
+            print("Torch could not be used: \(error.localizedDescription)")
         }
     }
+
+
+
     // MARK: - Life Cycle
 
     override public func viewDidLoad() {
@@ -123,14 +171,14 @@ func toggleTorch(on: Bool) {
     public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "YourSegueIdentifier" {
         let backButton = UIBarButtonItem(title: "Quay lại", style: .plain, target: nil, action: nil)
-navigationItem.backBarButtonItem = backButton
-}
-}
+        navigationItem.backBarButtonItem = backButton
+        }
+    }
 
     override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNeedsStatusBarAppearanceUpdate()
- //Khuong ẩn thanh navigation màu xám
+        //Khuong ẩn thanh navigation màu xám
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.setNeedsStatusBarAppearanceUpdate() // Cập nhật trạng thái thanh trạng thái
 
@@ -138,6 +186,9 @@ navigationItem.backBarButtonItem = backButton
         CaptureSession.current.isEditing = false
         quadView.removeQuadrilateral()
         captureSessionManager?.start()
+        // Bật flash tự động sau khi camera session đã running
+        // Sử dụng helper method để đảm bảo session đã sẵn sàng (quan trọng cho iPhone 13 Pro+)
+        enableTorchWhenReady()
         UIApplication.shared.isIdleTimerDisabled = true
 
         navigationController?.navigationBar.barStyle = .blackTranslucent
@@ -159,11 +210,15 @@ navigationItem.backBarButtonItem = backButton
         //
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.barStyle = originalBarStyle ?? .default
+        toggleTorch(on: false)
         captureSessionManager?.stop()
+        // Reset counter khi đóng camera
+        torchRetryCount = 0
 //         guard let device = AVCaptureDevice.default(for: AVMediaType.video) else { return }
 //         if device.torchMode == .on {
 //             toggleFlash()
 //         }
+
     }
 
     // MARK: - Setups
