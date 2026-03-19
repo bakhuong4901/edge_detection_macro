@@ -41,9 +41,19 @@ fun cropPicture(picture: Mat, pts: List<Point>): Mat {
 
     val srcMat = Mat(4, 1, CvType.CV_32FC2)
     val dstMat = Mat(4, 1, CvType.CV_32FC2)
+    // val mulW = dw * 3
+    // val mulH = dw * 1
+    // val mulW = dw * 4
+    // val mulH = dw * 2
+    // val mul = dw * 2 
+    val mulW = 0
+    val mulH = 0
+    val mul = 0 
 
+    Log.i(TAG, "dwidth: $dw")
+    Log.i(TAG, "dheigth: $dh")
     srcMat.put(0, 0, tl.x, tl.y, tr.x, tr.y, br.x, br.y, bl.x, bl.y)
-    dstMat.put(0, 0, 0.0, 0.0, dw, 0.0, dw, dh, 0.0, dh)
+    dstMat.put(0, 0, 0.0-mulW, 0.0-mulH, dw+mulW, 0.0-mulH, dw+mulW, dh+mulH, 0.0-mulW, dh+mulH)
 
     val m = Imgproc.getPerspectiveTransform(srcMat, dstMat)
 
@@ -105,6 +115,9 @@ private fun findContours(src: Mat): List<MatOfPoint> {
         .sortedByDescending { p: MatOfPoint -> Imgproc.contourArea(p) }
         .take(25)
 
+
+    Log.i("FILTERED COUNT", filteredContours.size.toString())
+
     hierarchy.release()
     grayImage.release()
     cannedImage.release()
@@ -125,11 +138,12 @@ private fun getCorners(contours: List<MatOfPoint>, size: Size): Corners? {
             val peri = Imgproc.arcLength(c2f, true)
             val approx = MatOfPoint2f()
             Imgproc.approxPolyDP(c2f, approx, 0.03 * peri, true)
+            //val area = Imgproc.contourArea(approx)
             val points = approx.toArray().asList()
             val convex = MatOfPoint()
             approx.convertTo(convex, CvType.CV_32S)
             // select biggest 4 angles polygon
-            if (points.size == 4 && Imgproc.isContourConvex(convex)) { 
+            if (points.size == 4 && Imgproc.isContourConvex(convex)) { // && checkDistances(points)
                 val foundPoints = sortPoints(points)
                 return Corners(foundPoints, size)
             }
@@ -140,6 +154,30 @@ private fun getCorners(contours: List<MatOfPoint>, size: Size): Corners? {
 
     return null
 }
+
+private fun checkDistances(points: List<Point>): Boolean {
+    val distanceThreshold = 200.0
+    var hasOkDistance = true;
+    for (i in 0..points.size - 1) {
+        for (j in i + 1..points.size - 1) {
+            val distance = getDistance(points[i], points[j])
+            if (distance < distanceThreshold) {
+                hasOkDistance = false
+                break
+            }
+        }
+    }
+    return hasOkDistance
+}
+
+fun getDistance(p1: Point, p2: Point): Double {
+    return Math.sqrt(
+        Math.pow(p2.x - p1.x, 2.0)
+            +
+            Math.pow(p2.y - p1.y, 2.0)
+    )
+}
+
 private fun sortPoints(points: List<Point>): List<Point> {
     val p0 = points.minByOrNull { point -> point.x + point.y } ?: Point()
     val p1 = points.minByOrNull { point: Point -> point.y - point.x } ?: Point()

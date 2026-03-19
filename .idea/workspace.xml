@@ -4,9 +4,84 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f08b3923-f33b-4d39-b5f6-cea7d389432e" name="Default Changelist" comment="fix xong macro và bật flash không bị đơ cho cả iphone đời cao và đời thấp">
+    <list default="true" id="f08b3923-f33b-4d39-b5f6-cea7d389432e" name="Default Changelist" comment="focus yellow regtangle">
+      <change afterPath="$PROJECT_DIR$/example/assets/img.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img10.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img11.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img12.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img13.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img14.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img15.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img16.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img17.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img18.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img19.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img20.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img21.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img22.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img23.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img24.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img25.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img26.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img27.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img28.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img29.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img30.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img31.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img32.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img33.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img34.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img35.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img36.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img37.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img38.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img39.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img40.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img41.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img42.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img43.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img44.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img45.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img46.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img47.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img49.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img7.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img8.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img9.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/lib/analytic_img.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/gemini_ai/analytics.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/gemini_ai/data.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/ScannerViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/ScannerViewController.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/Constants.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/Constants.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/EdgeDetectionPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/EdgeDetectionPlugin.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/base/BaseActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/base/BaseActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/crop/CropActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/crop/CropActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/crop/CropPresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/crop/CropPresenter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/processor/PaperProcessor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/processor/PaperProcessor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/scan/ScanActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/scan/ScanActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/scan/ScanConstants.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/scan/ScanPresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/scan/ScanPresenter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/view/PaperRectangle.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/view/PaperRectangle.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/.metadata" beforeDir="false" afterPath="$PROJECT_DIR$/example/.metadata" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/CaptureSeesioiMAIN.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/CaptureSeesioiMAIN.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +92,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Swift File" />
+        <option value="Dart File" />
       </list>
     </option>
   </component>
@@ -54,29 +130,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultSwiftTemplate&quot;: &quot;Swift File&quot;,
-    &quot;Flutter.example/lib/main.dart.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;io.flutter.project.isFirstOpen&quot;: &quot;true&quot;,
-    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/dev/edge_detection&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;flutter.settings&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
-    &quot;two.files.diff.last.used.folder&quot;: &quot;/Users/dev/Documents/Wescan-macro/WeScan&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultSwiftTemplate": "Swift File",
+    "Flutter.example/lib/main.dart.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "master",
+    "io.flutter.project.isFirstOpen": "true",
+    "io.flutter.reload.alreadyRun": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/dev/edge_detection/android/src/main/kotlin/com/sample/edgedetection",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "flutter.settings",
+    "show.migrate.to.gradle.popup": "false",
+    "two.files.diff.last.used.folder": "/Users/dev/Documents/Wescan-macro/WeScan"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection" />
+      <recent name="$PROJECT_DIR$/example" />
+      <recent name="$PROJECT_DIR$/lib/gemini_ai" />
+      <recent name="$PROJECT_DIR$/example/android" />
       <recent name="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -116,7 +199,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768551917596</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="focus yellow regtangle">
+      <option name="closed" value="true" />
+      <created>1768553342050</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1768553342050</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -140,6 +231,7 @@
     <MESSAGE value="tesst camera mcacro" />
     <MESSAGE value="macro done luôn pú lấy nét cho camera gốc rộng ios" />
     <MESSAGE value="fix xong macro và bật flash không bị đơ cho cả iphone đời cao và đời thấp" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix xong macro và bật flash không bị đơ cho cả iphone đời cao và đời thấp" />
+    <MESSAGE value="focus yellow regtangle" />
+    <option name="LAST_COMMIT_MESSAGE" value="focus yellow regtangle" />
   </component>
 </project>

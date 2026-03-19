@@ -1,7 +1,12 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:edge_detection/edge_detection.dart';
+import 'package:edge_detection/gemini_ai/analytics.dart';
+import 'package:edge_detection_example/analytic_img.dart';
 import 'package:flutter/material.dart';
+import 'package:image/image.dart' as img;
+import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -17,10 +22,42 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String? _imagePath;
+  SplitImage? _lhResult;
+  final GlobalKey<ScaffoldMessengerState> _scaffoldMessengerKey =
+      GlobalKey<ScaffoldMessengerState>();
 
   @override
   void initState() {
     super.initState();
+  }
+
+  Future<void> _saveImageToGallery() async {
+    if (_imagePath == null) return;
+
+    try {
+      // Gọi hàm lưu file từ đường dẫn _imagePath
+      final result = await ImageGallerySaverPlus.saveFile(_imagePath!);
+
+      if (mounted) {
+        if (result['isSuccess'] == true) {
+          _scaffoldMessengerKey.currentState?.showSnackBar(
+            const SnackBar(
+              content: Text('Đã lưu ảnh thành công vào thư viện!'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        } else {
+          _scaffoldMessengerKey.currentState?.showSnackBar(
+            const SnackBar(
+              content: Text('Không thể lưu ảnh!'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      print("Lỗi khi lưu ảnh: $e");
+    }
   }
 
   Future<void> getImageFromCamera() async {
@@ -46,7 +83,8 @@ class _MyAppState extends State<MyApp> {
       success = await EdgeDetection.detectEdge(
         imagePath,
         canUseGallery: true,
-        androidScanTitle: 'Scanning', // use custom localizations for android
+        androidScanTitle: 'Scanning',
+        // use custom localizations for android
         androidCropTitle: 'Crop',
         androidCropBlackWhiteTitle: 'Black White',
         androidCropReset: 'Reset',
@@ -56,9 +94,6 @@ class _MyAppState extends State<MyApp> {
       print(e);
     }
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) return;
 
     setState(() {
@@ -66,6 +101,9 @@ class _MyAppState extends State<MyApp> {
         _imagePath = imagePath;
       }
     });
+    File image = File(_imagePath!);
+    img.Image colorImage = img.decodeImage(image.readAsBytesSync())!;
+    _lhResult = await ImageAnalyze().splitImage(colorImage);
   }
 
   Future<void> getImageFromGallery() async {
@@ -87,9 +125,6 @@ class _MyAppState extends State<MyApp> {
       print(e);
     }
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) return;
 
     setState(() {
@@ -102,45 +137,72 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+      scaffoldMessengerKey: _scaffoldMessengerKey,
+      home: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text('OVUMB TEST'),
+            bottom: TabBar(tabs: [
+              Tab(
+                text: "GEMINI AI",
+              ),
+              Tab(
+                text: "EDGE DETECTION",
+              ),
+            ]),
+          ),
+          body: TabBarView(
             children: [
-              Center(
-                child: ElevatedButton(
-                  onPressed: getImageFromCamera,
-                  child: Text('Scan'),
-                ),
-              ),
-              SizedBox(height: 20),
-              Center(
-                child: ElevatedButton(
-                  onPressed: getImageFromGallery,
-                  child: Text('Upload'),
-                ),
-              ),
-              SizedBox(height: 20),
-              Text('Cropped image path:'),
-              Padding(
-                padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
-                child: Text(
-                  _imagePath.toString(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14),
-                ),
-              ),
-              Visibility(
-                visible: _imagePath != null,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.file(
-                    File(_imagePath ?? ''),
-                  ),
+              //GEMINI
+              PregnancyTestScreen(),
+              //EDGE
+              SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: getImageFromCamera,
+                        child: const Text('Scan'),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: getImageFromGallery,
+                        child: Text('Upload'),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Visibility(
+                      visible: _imagePath != null,
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                          onTap: _saveImageToGallery,
+                          child: Image.file(
+                            File(_imagePath ?? ''),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Text('KẾT QUẢ: ${_lhResult?.lh}'),
+                    // const Text('Cropped image path:'),
+                    // Padding(
+                    //   padding: EdgeInsets.only(top: 0, left: 0, right: 0),
+                    //   child: Text(
+                    //     _imagePath.toString(),
+                    //     textAlign: TextAlign.center,
+                    //     style: TextStyle(fontSize: 14),
+                    //   ),
+                    // ),
+                  ],
                 ),
               ),
             ],

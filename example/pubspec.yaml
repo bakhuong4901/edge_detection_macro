@@ -11,10 +11,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  permission_handler: ^10.0.0
+  image: ^3.3.0
+  permission_handler: ^11.3.1
   path_provider: ^2.0.11
   path: ^1.8.2
+  image_gallery_saver_plus: ^4.0.1
+  image_picker: ^1.1.2
   edge_detection:
     # When depending on this package from a real application you should use:
     #   edge_detection: ^x.y.z
@@ -74,3 +76,54 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  assets:
+    - assets/img.png
+    - assets/img1.jpg
+    - assets/img10.jpg
+    - assets/img11.jpg
+    - assets/img12.jpg
+    - assets/img13.jpg
+    - assets/img14.jpg
+    - assets/img15.jpg
+    - assets/img16.jpg
+    - assets/img17.jpg
+    - assets/img18.jpg
+    - assets/img19.jpg
+    - assets/img2.jpg
+    - assets/img20.jpg
+    - assets/img21.jpg
+    - assets/img22.jpg
+    - assets/img23.jpg
+    - assets/img24.jpg
+    - assets/img25.jpg
+    - assets/img26.jpg
+    - assets/img27.jpg
+    - assets/img28.jpg
+    - assets/img29.jpg
+    - assets/img3.jpg
+    - assets/img30.jpg
+    - assets/img31.jpg
+    - assets/img32.jpg
+    - assets/img33.jpg
+    - assets/img34.jpg
+    - assets/img35.jpg
+    - assets/img36.jpg
+    - assets/img37.jpg
+    - assets/img38.jpg
+    - assets/img39.jpg
+    - assets/img4.jpg
+    - assets/img40.jpg
+    - assets/img41.jpg
+    - assets/img42.jpg
+    - assets/img43.jpg
+    - assets/img44.jpg
+    - assets/img45.jpg
+    - assets/img46.jpg
+    - assets/img47.jpg
+    - assets/img49.jpg
+    - assets/img5.jpg
+    - assets/img6.jpg
+    - assets/img7.jpg
+    - assets/img8.jpg
+    - assets/img9.jpg
+    - assets/img49.jpg

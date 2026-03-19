@@ -37,7 +37,7 @@ class PaperRectangle : View {
     private var latestDownY = 0.0F
 
     init {
-        rectPaint.color = Color.argb(128, 255, 255, 255)
+        rectPaint.color = Color.argb(0, 255, 255, 255)
         rectPaint.isAntiAlias = true
         rectPaint.isDither = true
         rectPaint.strokeWidth = 6F
@@ -46,10 +46,10 @@ class PaperRectangle : View {
         rectPaint.strokeCap = Paint.Cap.ROUND      // set the paint cap to round too
         rectPaint.pathEffect = CornerPathEffect(10f)
 
-        circlePaint.color = Color.WHITE
+        circlePaint.color = Color.parseColor("#2DB5AC")
         circlePaint.isDither = true
         circlePaint.isAntiAlias = true
-        circlePaint.strokeWidth = 4F
+        circlePaint.strokeWidth = 10F
         circlePaint.style = Paint.Style.STROKE
     }
 
@@ -105,8 +105,8 @@ class PaperRectangle : View {
         tr = corners?.corners?.get(1) ?: Point(size.width * 0.9, size.height * 0.1)
         br = corners?.corners?.get(2) ?: Point(size.width * 0.9, size.height * 0.9)
         bl = corners?.corners?.get(3) ?: Point(size.width * 0.1, size.height * 0.9)
-        ratioX = size.width?.div(paperWidth) ?: 1.0
-        ratioY = size.height?.div(paperHeight) ?: 1.0
+        ratioX = size?.width?.div(paperWidth) ?: 1.0
+        ratioY = size?.height?.div(paperHeight) ?: 1.0
         resize()
         movePoints()
     }
@@ -116,48 +116,48 @@ class PaperRectangle : View {
         return listOf(tl, tr, br, bl)
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        rectPaint.color = Color.WHITE
-        rectPaint.strokeWidth = 6F
+        rectPaint.color = Color.parseColor("#2DB5AC")
+        rectPaint.strokeWidth = 10F
         rectPaint.style = Paint.Style.STROKE
         canvas?.drawPath(path, rectPaint)
 
-        rectPaint.color = Color.argb(128, 255, 255, 255)
+        rectPaint.color = Color.argb(0, 255, 255, 255)
         rectPaint.strokeWidth = 0F
         rectPaint.style = Paint.Style.FILL
         canvas?.drawPath(path, rectPaint)
 
-        if (cropMode) {
-            canvas?.drawCircle(tl.x.toFloat(), tl.y.toFloat(), 20F, circlePaint)
-            canvas?.drawCircle(tr.x.toFloat(), tr.y.toFloat(), 20F, circlePaint)
-            canvas?.drawCircle(bl.x.toFloat(), bl.y.toFloat(), 20F, circlePaint)
-            canvas?.drawCircle(br.x.toFloat(), br.y.toFloat(), 20F, circlePaint)
-        }
+//        if (cropMode) {
+//            canvas?.drawCircle(tl.x.toFloat(), tl.y.toFloat(), 20F, circlePaint)
+//            canvas?.drawCircle(tr.x.toFloat(), tr.y.toFloat(), 20F, circlePaint)
+//            canvas?.drawCircle(bl.x.toFloat(), bl.y.toFloat(), 20F, circlePaint)
+//            canvas?.drawCircle(br.x.toFloat(), br.y.toFloat(), 20F, circlePaint)
+//        }
     }
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-
-        if (!cropMode) {
-            return false
-        }
-        when (event?.action) {
-            MotionEvent.ACTION_DOWN -> {
-                latestDownX = event.x
-                latestDownY = event.y
-                calculatePoint2Move(event.x, event.y)
-            }
-            MotionEvent.ACTION_MOVE -> {
-                point2Move.x = (event.x - latestDownX) + point2Move.x
-                point2Move.y = (event.y - latestDownY) + point2Move.y
-                movePoints()
-                latestDownY = event.y
-                latestDownX = event.x
-            }
-        }
-        return true
-    }
+//    override fun onTouchEvent(event: MotionEvent?): Boolean {
+//
+//        if (!cropMode) {
+//            return false
+//        }
+//        when (event?.action) {
+//            MotionEvent.ACTION_DOWN -> {
+//                latestDownX = event.x
+//                latestDownY = event.y
+//                calculatePoint2Move(event.x, event.y)
+//            }
+//            MotionEvent.ACTION_MOVE -> {
+//                point2Move.x = (event.x - latestDownX) + point2Move.x
+//                point2Move.y = (event.y - latestDownY) + point2Move.y
+//                movePoints()
+//                latestDownY = event.y
+//                latestDownX = event.x
+//            }
+//        }
+//        return true
+//    }
 
     private fun calculatePoint2Move(downX: Float, downY: Float) {
         val points = listOf(tl, tr, br, bl)

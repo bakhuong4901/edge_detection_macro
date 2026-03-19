@@ -11,6 +11,10 @@ import com.sample.edgedetection.EdgeDetectionHandler
 import com.sample.edgedetection.R
 import com.sample.edgedetection.base.BaseActivity
 import com.sample.edgedetection.view.PaperRectangle
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.*
 
 class CropActivity : BaseActivity(), ICropView.Proxy {
 
@@ -18,17 +22,19 @@ class CropActivity : BaseActivity(), ICropView.Proxy {
 
     private lateinit var mPresenter: CropPresenter
 
-    private lateinit var initialBundle: Bundle
+    private lateinit var initialBundle: Bundle;
+
+    private var checkCrop = false;
 
     override fun prepare() {
-        this.initialBundle = intent.getBundleExtra(EdgeDetectionHandler.INITIAL_BUNDLE) as Bundle
+        this.initialBundle = intent.getBundleExtra(EdgeDetectionHandler.INITIAL_BUNDLE) as Bundle;
         this.title = initialBundle.getString(EdgeDetectionHandler.CROP_TITLE)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         findViewById<View>(R.id.paper).post {
-            // we have to initialize everything in post when the view has been drawn and we have the actual height and width of the whole view
+            //we have to initialize everything in post when the view has been drawn and we have the actual height and width of the whole view
             mPresenter.onViewsReady(findViewById<View>(R.id.paper).width, findViewById<View>(R.id.paper).height)
         }
     }
@@ -37,82 +43,41 @@ class CropActivity : BaseActivity(), ICropView.Proxy {
 
 
     override fun initPresenter() {
-        val initialBundle = intent.getBundleExtra(EdgeDetectionHandler.INITIAL_BUNDLE) as Bundle
-        mPresenter = CropPresenter(this, initialBundle)
+        val initialBundle = intent.getBundleExtra(EdgeDetectionHandler.INITIAL_BUNDLE) as Bundle;
+        mPresenter = CropPresenter(this, this, initialBundle)
         findViewById<ImageView>(R.id.crop).setOnClickListener {
             Log.e(TAG, "Crop touched!")
-            mPresenter.crop()
-            changeMenuVisibility(true)
+            // Gọi hàm crop() bằng coroutine
+            GlobalScope.launch(Dispatchers.Main) {
+                val result = mPresenter.crop()
+                if (result) {
+                    Log.e(TAG, "Crop done!1")
+                    mPresenter.save()
+                    setResult(Activity.RESULT_OK)
+                    System.gc()
+                    finish()
+                    // Thực hiện đoạn code khi crop() thành công
+                } else {
+                    // Thực hiện đoạn code khi crop() không thành công
+                }
+            }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun getPaper(): ImageView = findViewById(R.id.paper)
 
-    override fun getPaperRect() = findViewById<PaperRectangle>(R.id.paper_rect)
+    override fun getPaperRect(): PaperRectangle = findViewById<PaperRectangle>(R.id.paper_rect)
 
-    override fun getCroppedPaper() = findViewById<ImageView>(R.id.picture_cropped)
+    override fun getCroppedPaper(): ImageView = findViewById<ImageView>(R.id.picture_cropped)
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.crop_activity_menu, menu)
-
-        menu.setGroupVisible(R.id.enhance_group, showMenuItems)
-
-        menu.findItem(R.id.rotation_image).isVisible = showMenuItems
-
-        menu.findItem(R.id.gray).title =
-            initialBundle.getString(EdgeDetectionHandler.CROP_BLACK_WHITE_TITLE) as String
-        menu.findItem(R.id.reset).title =
-            initialBundle.getString(EdgeDetectionHandler.CROP_RESET_TITLE) as String
-
-        if (showMenuItems) {
-            menu.findItem(R.id.action_label).isVisible = true
-            findViewById<ImageView>(R.id.crop).visibility = View.GONE
-        } else {
-            menu.findItem(R.id.action_label).isVisible = false
-            findViewById<ImageView>(R.id.crop).visibility = View.VISIBLE
-        }
-
-        return super.onCreateOptionsMenu(menu)
-    }
-
-
-    private fun changeMenuVisibility(showMenuItems: Boolean) {
-        this.showMenuItems = showMenuItems
-        invalidateOptionsMenu()
-    }
-
-    // handle button activities
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-            R.id.action_label -> {
-                Log.e(TAG, "Saved touched!")
-                item.isEnabled = false
-                mPresenter.save()
-                setResult(Activity.RESULT_OK)
-                System.gc()
-                finish()
-                return true
-            }
-            R.id.rotation_image -> {
-                Log.e(TAG, "Rotate touched!")
-                mPresenter.rotate()
-                return true
-            }
-            R.id.gray -> {
-                Log.e(TAG, "Black White touched!")
-                mPresenter.enhance()
-                return true
-            }
-            R.id.reset -> {
-                Log.e(TAG, "Reset touched!")
-                mPresenter.reset()
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
 }
