@@ -47,4 +47,7 @@ final List<String> sampleImages = [
   'assets/img46.jpg',
   'assets/img47.jpg',
   'assets/img49.jpg',
+  'assets/img50.jpeg',
+  'assets/img51.jpeg',
+  'assets/img52.jpeg',
 ];

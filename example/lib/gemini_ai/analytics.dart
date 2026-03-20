@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:edge_detection_example/gemini_ai/data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-
-import 'data.dart';
 
 class PregnancyTestScreen extends StatefulWidget {
   @override
@@ -20,7 +20,7 @@ class _PregnancyTestScreenState extends State<PregnancyTestScreen> {
   bool _isLoading = false;
 
   // ⚠️ THAY THẾ BẰNG API KEY CỦA BẠN
-  final String apiKey = 'AIzaSyAs6gS8PJX-BRXlcBhbAfX9q_5JEX2gB-E';
+  // final String apiKey = dotenv.env['GEMINI_API_KEY']!;
 
   Future<void> _analyzeImage() async {
     if (_image == null) return;
@@ -29,12 +29,13 @@ class _PregnancyTestScreenState extends State<PregnancyTestScreen> {
       _isLoading = true;
       _resultText = "Đang phân tích...";
     });
-
+    print(dotenv.env['GEMINI_API_KEY']);
     try {
       // 1. Khởi tạo model Gemini 2.5 Flash (Nhanh và rẻ hơn Pro)
       final model = GenerativeModel(
-        model: 'gemini-3-flash-preview',
-        apiKey: apiKey,
+        // model: 'gemini-3-flash-preview',
+        model: 'gemini-2.5-flash',
+        apiKey: dotenv.env['GEMINI_API_KEY']!,
         generationConfig: GenerationConfig(
           responseMimeType: "application/json", // Yêu cầu trả về JSON
         ),
@@ -272,7 +273,7 @@ Chỉ trả về một đối tượng JSON thuần túy (không dùng markdown,
       builder: (context) {
         return Container(
           padding: EdgeInsets.all(16),
-          height: 500, // Chiều cao của sheet
+          height: 500,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

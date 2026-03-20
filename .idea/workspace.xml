@@ -5,83 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f08b3923-f33b-4d39-b5f6-cea7d389432e" name="Default Changelist" comment="focus yellow regtangle">
-      <change afterPath="$PROJECT_DIR$/example/assets/img.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img10.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img11.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img12.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img13.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img14.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img15.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img16.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img17.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img18.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img19.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img20.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img21.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img22.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img23.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img24.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img25.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img26.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img27.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img28.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img29.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img30.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img31.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img32.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img33.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img34.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img35.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img36.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img37.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img38.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img39.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img40.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img41.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img42.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img43.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img44.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img45.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img46.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img47.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img49.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img5.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img6.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img7.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img8.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/assets/img9.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/lib/analytic_img.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/gemini_ai/analytics.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/gemini_ai/data.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/android/app/google-services.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img50.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img51.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/assets/img52.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/ios/Runner/GoogleService-Info.plist" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/Constants.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/Constants.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/EdgeDetectionPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/EdgeDetectionPlugin.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/base/BaseActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/base/BaseActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/crop/CropActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/crop/CropActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/crop/CropPresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/crop/CropPresenter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/processor/PaperProcessor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/processor/PaperProcessor.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/scan/ScanActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/scan/ScanActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/scan/ScanConstants.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/scan/ScanPresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/scan/ScanPresenter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/view/PaperRectangle.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection/view/PaperRectangle.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/.metadata" beforeDir="false" afterPath="$PROJECT_DIR$/example/.metadata" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/ios/Podfile" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Podfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Podfile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/CaptureSeesioiMAIN.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan/CaptureSeesioiMAIN.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/gemini_ai/analytics.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/gemini_ai/analytics.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/gemini_ai/data.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/gemini_ai/data.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,7 +86,7 @@
     "io.flutter.project.isFirstOpen": "true",
     "io.flutter.reload.alreadyRun": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/dev/edge_detection/android/src/main/kotlin/com/sample/edgedetection",
+    "last_opened_file_path": "/Users/dev/edge_detection/example/assets",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
@@ -156,11 +97,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/example/assets" />
+      <recent name="$PROJECT_DIR$/example/ios/Runner" />
+      <recent name="$PROJECT_DIR$/example/android/app" />
       <recent name="$PROJECT_DIR$/android/src/main/kotlin/com/sample/edgedetection" />
       <recent name="$PROJECT_DIR$/example" />
-      <recent name="$PROJECT_DIR$/lib/gemini_ai" />
-      <recent name="$PROJECT_DIR$/example/android" />
-      <recent name="$PROJECT_DIR$/ios/WeScan-3.0.0/Sources/WeScan/Scan" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\ahmad\Desktop\edge_detection\android\src\main\kotlin\com\sample\edgedetection\processor" />
@@ -207,7 +148,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768553342050</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="focus yellow regtangle">
+      <option name="closed" value="true" />
+      <created>1773908558646</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1773908558646</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -221,7 +170,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>

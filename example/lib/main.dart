@@ -2,16 +2,22 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:edge_detection/edge_detection.dart';
-import 'package:edge_detection/gemini_ai/analytics.dart';
 import 'package:edge_detection_example/analytic_img.dart';
+import 'package:edge_detection_example/gemini_ai/analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:image/image.dart' as img;
 import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await dotenv.load(fileName: ".env");
+
   runApp(MyApp());
 }
 

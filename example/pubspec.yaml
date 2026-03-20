@@ -17,6 +17,9 @@ dependencies:
   path: ^1.8.2
   image_gallery_saver_plus: ^4.0.1
   image_picker: ^1.1.2
+  firebase_core: ^4.5.0
+  firebase_ai: ^3.9.0
+  firebase_app_check: ^0.4.1+5
   edge_detection:
     # When depending on this package from a real application you should use:
     #   edge_detection: ^x.y.z
@@ -29,6 +32,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  flutter_dotenv: ^6.0.0
 
 
 
@@ -77,6 +81,7 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
   assets:
+    - .env
     - assets/img.png
     - assets/img1.jpg
     - assets/img10.jpg
@@ -127,3 +132,6 @@ flutter:
     - assets/img8.jpg
     - assets/img9.jpg
     - assets/img49.jpg
+    - assets/img50.jpeg
+    - assets/img51.jpeg
+    - assets/img52.jpeg
